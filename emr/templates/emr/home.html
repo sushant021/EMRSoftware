@@ -1,0 +1,86 @@
+{% extends 'backend_base.html' %}
+
+
+{% block content %}
+  
+  <div class="container py-3">
+
+    
+    <h5> Appointments for Today, {{today_date}}</h5>
+    <div class="article">
+        <table class="table mt-4">
+        <tr>
+            <th>Id</th>
+            <th>Visitor Name</th>
+            <th>Description</th>
+            <th>Date and Time</th>
+            <th></th>
+            <th></th>
+            
+        </tr>
+        {% for appointment in today_appointments %}
+        <tr>
+            <td><span>{{appointment.id}}</span></td>
+            <td> <a href="{{appointment.get_absolute_url }}"> <span>{{appointment.visitor_name}}</span></a></td>
+            <td>
+            {{appointment.description}}
+            </td>
+            <td><span>{{appointment.date_time}}</span></td>
+        
+            <td>
+            <a href="{% url 'update_appointment' id=appointment.id %}" class="btn btn-primary"><span><i class="fas fa-edit"></i></span></a>
+            
+            </td>
+            <td>
+            <a href="{% url 'delete_appointment' id=appointment.id %}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span></a></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+
+    <hr/>
+    <div class="gap-5"> </div>
+    <div class="gap-5"> </div>
+     
+    {% comment %} <h5> Upcoming Appointments</h5>
+    <div class="article">
+        <table class="table mt-4">
+        <tr>
+            <th>Id</th>
+            <th>Visitor Name</th>
+            <th>Description</th>
+            <th>Date and Time</th>
+            <th></th>
+            <th></th>
+            
+        </tr>
+        {% for appointment in upcoming_appointments %}
+        <tr>
+            <td><span>{{appointment.id}}</span></td>
+            <td> <a href="{{appointment.get_absolute_url }}"> <span>{{appointment.visitor_name}}</span></a></td>
+            <td>
+            {{appointment.description}}
+            </td>
+            <td><span>{{appointment.date_time}}</span></td>
+        
+            <td>
+            <a href="{% url 'update_appointment' id=appointment.id %}" class="btn btn-primary"><span><i class="fas fa-edit"></i></span></a>
+            
+            </td>
+            <td>
+            <a href="{% url 'delete_appointment' id=appointment.id %}" class="btn btn-danger"><span><i class="far fa-trash-alt"></i></span></a></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </table>
+    </div>
+    <hr/>
+     {% endcomment %}
+
+     <h5 class="text-center"> Calendar </h5>
+     
+
+    
+  </div>
+{% endblock %}
