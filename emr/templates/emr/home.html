@@ -7,16 +7,16 @@
 
     
     <h5> Appointments for Today, {{today_date}}</h5>
+    
     <div class="article appointment-section">
-        <table class="table mt-4">
+        
+        <table class="table homepage-table">
         <tr>
             <th>Date and Time</th>
             <th>Visitor Name</th>
             <th>Description</th>
-            
-           
-            
         </tr>
+        
         {% for appointment in today_appointments %}
         <tr>
             <td><a href="{{appointment.get_absolute_url }}"> <span>{{appointment.date_time}}</span></td>

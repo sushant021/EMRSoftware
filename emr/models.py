@@ -82,6 +82,9 @@ class Appointment(models.Model):
     description = models.TextField(blank=True)
     date_time = models.DateTimeField(default=timezone.now)
 
+    class Meta:
+        ordering = ('date_time',)
+
     def __str__(self):
         return self.visitor_name
 
