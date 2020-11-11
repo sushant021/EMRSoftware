@@ -27,7 +27,7 @@ SECRET_KEY = 'ljf($-%ib*bz3+geuaoda6!h3$h$f9km4sf!l7%v_q$^ot1cz#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['emrsoftware.herokuapp.com', 'localhost', ]
 
 
 # Application definition
