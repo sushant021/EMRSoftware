@@ -77,7 +77,7 @@ class Day(models.Model):
 
 
 class Appointment(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     visitor_name = models.CharField(max_length=254, blank=True)
     description = models.TextField(blank=True)
     date_time = models.DateTimeField(default=timezone.now)
