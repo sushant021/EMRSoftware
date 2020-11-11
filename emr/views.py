@@ -6,6 +6,7 @@ from .forms import LoginForm, PatientForm, AppointmentForm
 from .models import Department, Employee, Patient, Appointment
 from django.shortcuts import get_object_or_404
 from datetime import date
+from django.utils import timezone
 
 
 def user_logout(request):
@@ -101,9 +102,11 @@ def user_login(request):
 def home(request):
     today_appointments = []
     upcoming_appointments = []
+    # now = timezone.now()
     today = date.today()
     today_date = today.strftime("%B %d, %Y")
     appointments = Appointment.objects.all()
+    # upcoming = Appointment.objects.filter(date__gte=now).order_by('date')
     for appointment in appointments:
         appointment_date = appointment.date_time
         appointment_date_formatted = appointment_date.strftime("%B %d, %Y")

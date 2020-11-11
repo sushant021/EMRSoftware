@@ -198,3 +198,14 @@ body {
 .emr-btn:hover{
   background-color:rgba(3, 161, 169, 0.8)!important;
 }
+
+
+/* appointments section */
+.appointment-container{
+  height:100vh;
+}
+.appointment-section{
+  height:30%;
+  padding:1em;
+  overflow-y: scroll;
+}
