@@ -16,7 +16,7 @@ class Department(models.Model):
 
 
 class Employee(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     full_name = models.CharField(max_length=254)
     department = models.ForeignKey(
         Department, on_delete=models.CASCADE, related_name='employees')
@@ -38,7 +38,7 @@ class Employee(models.Model):
 
 
 class Patient(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -77,7 +77,7 @@ class Day(models.Model):
 
 
 class Appointment(models.Model):
-    id = models.AutoField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     visitor_name = models.CharField(max_length=254, blank=True)
     description = models.TextField(blank=True)
     date_time = models.DateTimeField(default=timezone.now)
