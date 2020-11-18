@@ -4,6 +4,7 @@ from django.utils import timezone
 
 
 class Department(models.Model):
+    id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=50)
     description = models.TextField(blank=True)
 
@@ -13,6 +14,9 @@ class Department(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('view_department', args=[self.id])
 
 
 class Employee(models.Model):
@@ -33,8 +37,8 @@ class Employee(models.Model):
     def __str__(self):
         return self.full_name
 
-    # def get_absolute_url(self):
-    #     return reverse('view_employee', args=[self.id])
+    def get_absolute_url(self):
+        return reverse('view_employee', args=[self.id])
 
 
 class Patient(models.Model):
@@ -59,21 +63,6 @@ class Patient(models.Model):
         return reverse('view_patient', args=[self.id])
 
 
-class Month(models.Model):
-    id = models.IntegerField(primary_key=True)
-    name = models.CharField(max_length=50, default='November')
-
-    def __str__(self):
-        return self.name
-
-
-class Day(models.Model):
-    number = models.IntegerField()
-    month = models.ForeignKey(
-        Month, on_delete=models.CASCADE, related_name='days', default=11)
-
-    def __str__(self):
-        return "%d %s" % (self.number, self.month)
 
 
 class Appointment(models.Model):

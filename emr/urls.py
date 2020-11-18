@@ -24,6 +24,21 @@ urlpatterns = [
     path('appointment/update/<int:id>/',
          views.update_appointment, name='update_appointment'),
 
+    #employee_crud
+    path('employees/', views.list_employees, name='list_employees'),
+    #path('search-employee/', views.search_employees, name='search_employee'),
+    path('employee/add/', views.add_employee, name='add_employee'),
+    path('employee/<int:id>/', views.view_employee, name='view_employee'),
+    path('employee/delete/<int:id>/', views.delete_employee, name='delete_employee'),
+    path('employee/update/<int:id>/', views.update_employee, name='update_employee'),
+
+    #department_crud
+     path('departments/', views.list_departments, name='list_departments'),
+    #path('search-department/', views.search_departments, name='search_department'),
+    path('department/add/', views.add_department, name='add_department'),
+    path('department/<int:id>/', views.view_department, name='view_department'),
+    path('department/delete/<int:id>/', views.delete_department, name='delete_department'),
+    path('department/update/<int:id>/', views.update_department, name='update_department'),
 
 
 

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Department, Employee, Patient, Appointment, Month, Day
+from .models import Department, Employee, Patient, Appointment
 
 
 @admin.register(Department)
@@ -21,12 +21,3 @@ class PatientAdmin(admin.ModelAdmin):
 class ApppointmentAdmin(admin.ModelAdmin):
     list_display = ['id', 'visitor_name', 'date_time']
 
-
-@admin.register(Month)
-class MonthAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', ]
-
-
-@admin.register(Day)
-class DayAdmin(admin.ModelAdmin):
-    list_display = ['number', 'month', ]

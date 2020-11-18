@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, PatientForm, AppointmentForm
+from .forms import LoginForm, PatientForm, AppointmentForm , EmployeeForm, DepartmentForm
 from .models import Department, Employee, Patient, Appointment
 from django.shortcuts import get_object_or_404
 from datetime import date
@@ -166,3 +166,89 @@ def update_appointment(request, id):
         return redirect('list_appointments')
     context = {"form": form, 'appointment': appointment}
     return render(request, template, context)
+
+
+#employee views
+
+def list_employees(request):
+    employees = Employee.objects.all()
+    return render(request, 'emr/list_employees.html', {'employees': employees})
+
+
+def view_employee(request, id):
+    employee = Employee.objects.get(id=id)
+    return render(request, 'emr/view_employee.html', {'employee': employee})
+
+
+def add_employee(request):
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_employees')
+        else:
+            error = 'Invalid form submission'
+            return render(request, 'emr/add_employee.html', {'form': form, 'error': error})
+    else:
+        form = EmployeeForm()
+        return render(request, 'emr/add_employee.html', {'form': form})
+
+
+def delete_employee(request, id):
+    employee = Employee.objects.get(id=id)
+    employee.delete()
+    return redirect('list_employees')
+
+
+def update_employee(request, id):
+    template = 'emr/update_employee.html'
+    employee = Employee.objects.get(id=id)
+    form = EmployeeForm(request.POST or None, instance=employee)
+    if form.is_valid():
+        form.save()
+        return redirect('list_employees')
+    context = {"form": form, 'employee': employee}
+    return render(request, template, context)
+
+
+#department views
+def list_departments(request):
+    departments = Department.objects.all()
+    return render(request, 'emr/list_departments.html', {'departments': departments})
+
+
+def view_department(request, id):
+    department = Department.objects.get(id=id)
+    return render(request, 'emr/view_department.html', {'department': department})
+
+
+def add_department(request):
+    if request.method == 'POST':
+        form = DepartmentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('list_departments')
+        else:
+            error = 'Invalid form submission'
+            return render(request, 'emr/add_department.html', {'form': form, 'error': error})
+    else:
+        form = DepartmentForm()
+        return render(request, 'emr/add_department.html', {'form': form})
+
+
+def delete_department(request, id):
+    department = Department.objects.get(id=id)
+    department.delete()
+    return redirect('list_departments')
+
+
+def update_department(request, id):
+    template = 'emr/update_department.html'
+    department = Department.objects.get(id=id)
+    form = DepartmentForm(request.POST or None, instance=department)
+    if form.is_valid():
+        form.save()
+        return redirect('list_departments')
+    context = {"form": form, 'department': department}
+    return render(request, template, context)
+

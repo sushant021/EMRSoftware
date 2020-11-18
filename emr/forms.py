@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Patient, Appointment
+from .models import Patient, Appointment , Employee , Department
 from tempus_dominus.widgets import DatePicker, TimePicker, DateTimePicker
 
 
@@ -14,6 +14,17 @@ class LoginForm(forms.Form):
 class PatientForm(ModelForm):
     class Meta:
         model = Patient
+        fields = '__all__'
+
+
+class EmployeeForm(ModelForm):
+    class Meta:
+        model = Employee
+        fields = '__all__'
+
+class DepartmentForm(ModelForm):
+    class Meta:
+        model = Department
         fields = '__all__'
 
 
