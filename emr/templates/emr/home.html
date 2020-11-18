@@ -33,26 +33,23 @@
     </div>
 
     <hr/>
-    <div class="gap-5"> </div>
     
      
    <h5> Upcoming Appointments</h5>
     <div class="article appointment-section">
         <table class="table mt-4">
         <tr>
-            <th>Date and Time</th>
-            <th>Visitor Name</th>
-            <th>Description</th>
+            <th>Date</th>
+            <th>No. of appointments</th>
+            
             
             
         </tr>
-        {% for appointment in upcoming_appointments %}
+        {% for day in upcoming_days %}
         <tr>
-            <td><a href="{{appointment.get_absolute_url }}"> <span>{{appointment.date_time}}</span></td>
-            <td><span>{{appointment.visitor_name}}</span></a></td>
-            <td>
-            {{appointment.description}}
-            </td>
+            <td><a href="{{day.get_absolute_url }}"> <span>{{day.month}} {{day.number}}</span></td>
+            <td><span>{{day.appointments.count}}</span></a></td>
+            
             
         
            
@@ -60,7 +57,7 @@
         {% endfor %}
         </table>
     </div>
-    <hr/>
+    
     
 
     

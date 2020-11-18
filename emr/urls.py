@@ -7,6 +7,10 @@ urlpatterns = [
     # authentication
     path('', views.user_login, name='login'),
     path('logout/', views.user_logout, name='logout'),
+
+    #day
+    path('day/<int:id>/', views.view_day, name='view_day'),
+    
     # patient_crud
     path('patients/', views.list_patients, name='list_patients'),
     path('search-patient/', views.search_patients, name='search_patient'),

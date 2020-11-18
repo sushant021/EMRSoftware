@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
+from django.contrib.auth.models import User
 
 
 class Department(models.Model):
@@ -62,17 +63,45 @@ class Patient(models.Model):
     def get_absolute_url(self):
         return reverse('view_patient', args=[self.id])
 
+    
+class Day(models.Model):
+    id = models.AutoField(primary_key=True)
+    number = models.IntegerField()
+    month = models.CharField(max_length=20)
+    month_number = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('created_at',)
+
+    def __str__(self):
+        date = str(self.month) +' ' + str(self.number)
+        return date
+
+    def get_absolute_url(self):
+        return reverse('view_day', args=[self.id])
 
 
 
 class Appointment(models.Model):
+    
     id = models.AutoField(primary_key=True)
+    
     visitor_name = models.CharField(max_length=254, blank=True)
     description = models.TextField(blank=True)
     date_time = models.DateTimeField(default=timezone.now)
+    day = models.ForeignKey(Day, on_delete=models.CASCADE, related_name='appointments',blank=True)
 
     class Meta:
         ordering = ('date_time',)
+
+    def save(self, *args, **kwargs):
+
+        appointment_day_month = str(self.date_time.strftime("%B"))
+        appointment_day_number = self.date_time.strftime("%d")
+        appointment_day = Day.objects.get(month=appointment_day_month, number = appointment_day_number)
+        self.day = appointment_day
+        super(Appointment, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.visitor_name

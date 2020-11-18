@@ -3,9 +3,10 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, PatientForm, AppointmentForm , EmployeeForm, DepartmentForm
-from .models import Department, Employee, Patient, Appointment
+from .models import Department, Employee, Patient, Appointment , Day
 from django.shortcuts import get_object_or_404
 from datetime import date
+import datetime
 from django.utils import timezone
 
 
@@ -100,25 +101,40 @@ def user_login(request):
 
 @login_required
 def home(request):
+    
     today_appointments = []
-    upcoming_appointments = []
-    # now = timezone.now()
+    day_dates = {}
+    upcoming_days = []
+
     today = date.today()
     today_date = today.strftime("%B %d, %Y")
     appointments = Appointment.objects.all()
-    # upcoming = Appointment.objects.filter(date__gte=now).order_by('date')
     for appointment in appointments:
         appointment_date = appointment.date_time
         appointment_date_formatted = appointment_date.strftime("%B %d, %Y")
         if appointment_date_formatted == today_date:
             today_appointments.append(appointment)
-        else:
-            upcoming_appointments.append(appointment)
+    
+    days = Day.objects.all()
+    for day in days:
+        day_date = datetime.date(2020,day.month_number,day.number) 
+        day_dates[day] = day_date
+
+    for day,day_date in day_dates.items():
+        if day_date > date.today():
+            upcoming_days.append(day)
 
     template = 'emr/home.html'
-    context = {'today_date': today_date, 'today_appointments': today_appointments,
-               'upcoming_appointments': upcoming_appointments}
-    return render(request, template, context)
+    context = {'today_date': today_date, 'today_appointments': today_appointments,'upcoming_days': upcoming_days}
+    return render(request,template,context)
+
+
+def view_day(request,id):
+    day = Day.objects.get(id = id)
+    appointments = day.appointments.all()
+    return render(request,'emr/view_day.html',{'day':day,'appointments':appointments})    
+
+    
 
 
 def index(request):
