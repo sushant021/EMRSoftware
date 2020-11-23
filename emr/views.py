@@ -134,9 +134,6 @@ def view_day(request,id):
     appointments = day.appointments.all()
     return render(request,'emr/view_day.html',{'day':day,'appointments':appointments})    
 
-    
-
-
 def index(request):
     return HttpResponse('Hello world !')
 
